@@ -3,3 +3,4 @@
 2. React-dropzone
 3. Uploadthing
 4. Shadcn-UI
+5. React-resize-detector
