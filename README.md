@@ -4,3 +4,5 @@
 3. Uploadthing
 4. Shadcn-UI
 5. React-resize-detector
+6. React-hook-form
+7. @hookform/resolvers
