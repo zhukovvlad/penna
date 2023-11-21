@@ -6,3 +6,4 @@
 5. React-resize-detector
 6. React-hook-form
 7. @hookform/resolvers
+8. Simplebar-react
