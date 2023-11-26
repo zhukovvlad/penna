@@ -8,6 +8,8 @@
 7. @hookform/resolvers
 8. Simplebar-react
 9. react-textarea-autosize
+10.  @pinecone-database/pinecone
+11. langchain
 
 
 
