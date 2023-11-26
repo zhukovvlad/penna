@@ -7,3 +7,10 @@
 6. React-hook-form
 7. @hookform/resolvers
 8. Simplebar-react
+9. react-textarea-autosize
+
+
+
+## DB commands
+npx prisma db push
+npx prisma generate
