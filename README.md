@@ -10,6 +10,11 @@
 9. react-textarea-autosize
 10.  @pinecone-database/pinecone
 11. langchain
+12. pdf-parse
+13. openai
+14. @qdrant/js-client-rest
+15. ai
+16. react-markdown
 
 
 

@@ -4,7 +4,12 @@ import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { PDFLoader } from "langchain/document_loaders/fs/pdf";
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import { PineconeStore } from "langchain/vectorstores/pinecone";
+import { QdrantVectorStore } from "langchain/vectorstores/qdrant";
+// import { getPineconeClient } from "@/lib/pinecone";
 import { pinecone } from "@/lib/pinecone";
+import { qdrant } from "@/lib/qdrant";
+
+import { QdrantClient } from "@qdrant/js-client-rest";
 
 const f = createUploadthing();
 
@@ -40,18 +45,29 @@ export const ourFileRouter = {
         const pageLevelDocs = await loader.load();
         const pagesAmt = pageLevelDocs.length;
 
-        //  vectorize and index entire document
+        const client = new QdrantClient({
+          url: process.env.QDRANT_URL,
+          apiKey: process.env.QDRANT_API_KEY,
+        });
 
-        const pineconeIndex = pinecone.Index("penna");
+        //  vectorize and index entire document
+        // const pinecone = await getPineconeClient();
+        // const pineconeIndex = pinecone.index("penna");
 
         const embeddings = new OpenAIEmbeddings({
           openAIApiKey: process.env.OPENAI_API_KEY,
         });
 
-        await PineconeStore.fromDocuments(pageLevelDocs, embeddings, {
-          pineconeIndex,
-          namespace: createdFile.id,
+        await QdrantVectorStore.fromDocuments(pageLevelDocs, embeddings, {
+          client,
+          collectionName: createdFile.id,
         });
+
+        // await PineconeStore.fromDocuments(pageLevelDocs, embeddings, {
+        //   //@ts-ignore
+        //   pineconeIndex,
+        //   // namespace: createdFile.id,
+        // });
 
         await db.file.update({
           data: {
@@ -62,6 +78,7 @@ export const ourFileRouter = {
           },
         });
       } catch (err) {
+        console.log(err);
         await db.file.update({
           data: {
             uploadStatus: "FAILED",
