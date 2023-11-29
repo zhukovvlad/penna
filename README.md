@@ -15,6 +15,7 @@
 14. @qdrant/js-client-rest
 15. ai
 16. react-markdown
+17. @mantine/hooks
 
 
 
