@@ -16,6 +16,8 @@
 15. ai
 16. react-markdown
 17. @mantine/hooks
+18. stripe
+
 
 
 
